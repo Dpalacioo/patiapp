@@ -1,1 +1,13 @@
-<p>header works!</p>
+<mat-toolbar color="primary">
+  <!-- BOTÓN SOLO EN MÓVIL -->
+  <button
+    mat-icon-button
+    class="menu-btn"
+    (click)="toggleSidenav.emit()"
+    *ngIf="isHandset"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
+
+  <span class="title">Sistema Confección</span>
+</mat-toolbar>
