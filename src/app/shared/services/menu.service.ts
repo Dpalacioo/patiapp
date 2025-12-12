@@ -80,7 +80,9 @@ export class MenuService {
   }
 
   getMenuByRole(role: string): MenuItem[] {
-    if (!role) return [];
-    return this.menu.filter((item) => item.roles.includes(role));
+    console.log('Filtrando menú para role:', role); // 🔹
+    const filtered = this.menu.filter((item) => item.roles.includes(role));
+    console.log('Items filtrados:', filtered); // 🔹
+    return filtered;
   }
 }

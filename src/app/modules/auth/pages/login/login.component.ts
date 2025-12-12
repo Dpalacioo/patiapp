@@ -27,7 +27,7 @@ export class LoginComponent {
 
     this.auth.login(this.form.value).subscribe({
       next: () => {
-        this.router.navigate(['/']);
+        this.router.navigate(['/']); // SPA-friendly, el menú se actualizará automáticamente
       },
       error: (err) => {
         console.log('Error login:', err);

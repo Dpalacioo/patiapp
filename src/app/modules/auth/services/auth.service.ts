@@ -1,7 +1,7 @@
+// src/app/modules/auth/services/auth.service.ts
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import { tap } from 'rxjs/operators';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { BehaviorSubject, tap } from 'rxjs';
 
 @Injectable({
   providedIn: 'root',
@@ -9,9 +9,9 @@ import { BehaviorSubject, Observable } from 'rxjs';
 export class AuthService {
   private api = 'http://localhost:3000/api/auth';
 
-  // NUEVO: BehaviorSubject para el usuario
+  // BehaviorSubject para exponer el usuario
   private userSubject = new BehaviorSubject<any>(this.getUser());
-  public user$: Observable<any> = this.userSubject.asObservable();
+  user$ = this.userSubject.asObservable();
 
   constructor(private http: HttpClient) {}
 
@@ -22,9 +22,7 @@ export class AuthService {
         tap((res) => {
           localStorage.setItem('token', res.token);
           localStorage.setItem('user', JSON.stringify(res.user));
-
-          // actualizar BehaviorSubject
-          this.userSubject.next(res.user);
+          this.userSubject.next(res.user); // actualizar BehaviorSubject
         })
       );
   }
@@ -32,8 +30,6 @@ export class AuthService {
   logout() {
     localStorage.removeItem('token');
     localStorage.removeItem('user');
-
-    // limpiar BehaviorSubject
     this.userSubject.next(null);
   }
 

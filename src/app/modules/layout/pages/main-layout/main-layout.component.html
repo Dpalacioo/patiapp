@@ -1,8 +1,14 @@
 <mat-sidenav-container class="layout-wrapper" autosize>
-  <app-sidebar></app-sidebar>
+  <mat-sidenav #sidenav mode="side" [opened]="!isHandset" class="app-sidenav">
+    <app-sidebar></app-sidebar>
+  </mat-sidenav>
 
   <mat-sidenav-content>
-    <app-header [isHandset]="isHandset"></app-header>
+    <app-header
+      [isHandset]="isHandset"
+      (toggleSidenav)="sidenav.toggle()"
+    ></app-header>
+
     <div class="content">
       <router-outlet></router-outlet>
     </div>
