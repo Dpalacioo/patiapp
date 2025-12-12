@@ -1,1 +1,90 @@
-<p>create works!</p>
+<mat-card>
+  <mat-card-title>Crear Corte</mat-card-title>
+  <mat-card-content>
+    <form [formGroup]="form">
+      <div class="form-row">
+        <mat-form-field appearance="fill">
+          <mat-label>Mesa</mat-label>
+          <input matInput formControlName="mesa" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Fecha</mat-label>
+          <input matInput [matDatepicker]="picker" formControlName="fecha" />
+          <mat-datepicker-toggle
+            matSuffix
+            [for]="picker"
+          ></mat-datepicker-toggle>
+          <mat-datepicker #picker></mat-datepicker>
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="fill">
+          <mat-label>Referencia</mat-label>
+          <input matInput formControlName="referencia" />
+        </mat-form-field>
+
+        <mat-form-field appearance="fill">
+          <mat-label>Material</mat-label>
+          <input matInput formControlName="material" />
+        </mat-form-field>
+      </div>
+
+      <div class="form-row">
+        <mat-form-field appearance="fill">
+          <mat-label>Total</mat-label>
+          <input matInput type="number" formControlName="total" />
+        </mat-form-field>
+      </div>
+
+      <h3>Detalles</h3>
+      <div formArrayName="detalles">
+        <div
+          *ngFor="let d of detalles.controls; let i = index"
+          [formGroupName]="i"
+          class="detalle-row"
+        >
+          <mat-form-field appearance="fill">
+            <mat-label>Color</mat-label>
+            <input matInput formControlName="color" />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Talla</mat-label>
+            <input matInput formControlName="talla" />
+          </mat-form-field>
+
+          <mat-form-field appearance="fill">
+            <mat-label>Cantidad</mat-label>
+            <input matInput type="number" formControlName="cantidad" />
+          </mat-form-field>
+
+          <button
+            mat-icon-button
+            color="warn"
+            type="button"
+            (click)="removeDetalle(i)"
+          >
+            <mat-icon>delete</mat-icon>
+          </button>
+        </div>
+      </div>
+
+      <button mat-button color="primary" type="button" (click)="addDetalle()">
+        Agregar detalle
+      </button>
+
+      <div class="submit-btn">
+        <button
+          mat-raised-button
+          color="accent"
+          type="button"
+          (click)="submit()"
+        >
+          Guardar Corte
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+</mat-card>

@@ -1,0 +1,31 @@
+.corte-card {
+  padding: 20px;
+
+  .detail-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr; // dos columnas iguales
+    gap: 10px 20px; // espacio entre filas y columnas
+    margin-bottom: 20px;
+
+    .detail-field {
+      .label {
+        font-weight: bold;
+        display: inline-block;
+        width: 80px;
+      }
+
+      .value {
+        font-size: 14px;
+
+        &.bold {
+          font-weight: bold;
+        }
+      }
+    }
+  }
+
+  table {
+    width: 100%;
+    margin-top: 10px;
+  }
+}
