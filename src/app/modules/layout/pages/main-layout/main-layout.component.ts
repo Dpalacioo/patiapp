@@ -1,6 +1,5 @@
-import { Component, ViewChild } from '@angular/core';
+import { Component } from '@angular/core';
 import { BreakpointObserver, Breakpoints } from '@angular/cdk/layout';
-import { SidebarComponent } from '../../components/sidebar/sidebar.component';
 
 @Component({
   selector: 'app-main-layout',
@@ -8,7 +7,6 @@ import { SidebarComponent } from '../../components/sidebar/sidebar.component';
   styleUrls: ['./main-layout.component.scss'],
 })
 export class MainLayoutComponent {
-  @ViewChild(SidebarComponent) sidebar!: SidebarComponent;
   isHandset = false;
 
   constructor(private breakpointObserver: BreakpointObserver) {}
@@ -18,8 +16,4 @@ export class MainLayoutComponent {
       .observe([Breakpoints.Handset])
       .subscribe((result) => (this.isHandset = result.matches));
   }
-
-  // toggleSidebar() {
-  //   this.sidebar.toggle();
-  // }
 }

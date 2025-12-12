@@ -1,7 +1,8 @@
 import { Component } from '@angular/core';
-import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { MenuService } from 'src/app/shared/services/menu.service';
+import { AuthService } from 'src/app/modules/auth/services/auth.service';
 import { MenuItem } from 'src/app/shared/interfaces/menu-item.interface';
+import { map, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-sidebar',
@@ -9,16 +10,19 @@ import { MenuItem } from 'src/app/shared/interfaces/menu-item.interface';
   styleUrls: ['./sidebar.component.scss'],
 })
 export class SidebarComponent {
-  menuItems: MenuItem[] = [];
-  userRole: string = '';
+  userRole$: Observable<string>;
+  menuItems$: Observable<MenuItem[]>;
 
-  constructor(
-    private menuService: MenuService,
-    private authService: AuthService
-  ) {}
+  constructor(public menuService: MenuService, public auth: AuthService) {
+    this.userRole$ = this.auth.user$.pipe(map((user) => user?.role ?? ''));
 
-  ngOnInit() {
-    this.userRole = this.authService.getRole(); // <-- Este SÍ existe
-    this.menuItems = this.menuService.getMenuForUser(); // <-- Este SÍ existe
+    this.menuItems$ = this.auth.user$.pipe(
+      map((user) => (user ? this.menuService.getMenuByRole(user.role) : []))
+    );
+  }
+
+  logout() {
+    this.auth.logout();
+    window.location.href = '/auth/login';
   }
 }

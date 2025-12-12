@@ -1,18 +1,21 @@
-<div class="sidebar-wrapper">
-  <div class="user-section">
-    <span class="role">{{ userRole | uppercase }}</span>
-  </div>
+<div class="brand">
+  <h3>PATIApp</h3>
+  <div class="role">{{ userRole$ | async | uppercase }}</div>
+</div>
 
-  <mat-nav-list>
-    <a
-      mat-list-item
-      *ngFor="let item of menuItems"
-      [routerLink]="item.path"
-      routerLinkActive="active-link"
-      [routerLinkActiveOptions]="{ exact: true }"
-    >
-      <mat-icon>{{ item.icon }}</mat-icon>
-      <span>{{ item.label }}</span>
-    </a>
-  </mat-nav-list>
+<mat-nav-list *ngIf="menuItems$ | async as menuItems">
+  <a
+    mat-list-item
+    *ngFor="let item of menuItems"
+    [routerLink]="item.path"
+    routerLinkActive="active"
+    [routerLinkActiveOptions]="{ exact: item.exact ?? false }"
+  >
+    <mat-icon>{{ item.icon }}</mat-icon>
+    <span>{{ item.label }}</span>
+  </a>
+</mat-nav-list>
+
+<div class="sidebar-footer">
+  <button mat-button (click)="logout()">Cerrar sesión</button>
 </div>
