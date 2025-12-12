@@ -1,1 +1,11 @@
-<p>main-layout works!</p>
+<mat-sidenav-container class="layout-wrapper" autosize>
+  <app-sidebar></app-sidebar>
+
+  <mat-sidenav-content>
+    <app-header [isHandset]="isHandset"></app-header>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+    <app-footer></app-footer>
+  </mat-sidenav-content>
+</mat-sidenav-container>
